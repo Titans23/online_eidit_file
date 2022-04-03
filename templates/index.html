@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>edit_file</title>
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/socket.io/3.0.5/socket.io.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript">
+        $(document).ready(function (){
+            var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+            socket.on('server_response',function (msg){
+                document.getElementById("text").value = msg.data;
+            })
+            $('#text').bind('input propertychange','textarea',function (){
+                socket.emit('modify',{data:$("#text").val()})
+            })
+        })
+    </script>
+    <style type="text/css">
+            #footer {
+                height: 40px;
+                line-height: 40px;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+                background: white;
+                color: green;
+                font-family: Arial;
+                font-size: 12px;
+                letter-spacing: 1px;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-6 column">
+                <h1 style="text-align: center">在线文本编辑</h1>
+                <label for="text">在下面输入文字</label>
+                <textarea name="text" id="text" cols="70" rows="30" >
+
+                </textarea>
+            </div>
+            <div class="col-md-6 column">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="alert alert-dismissable alert-success">
+
+				<h4>
+					提示1:
+				</h4> <strong>Tip!</strong> 切勿频繁操作，容易导致服务器崩溃. <a href="#" class="alert-link"></a>
+			</div>
+                <br>
+                <br>
+			<div class="alert alert-dismissable alert-success">
+				<h4>
+					提示2:
+				</h4> <strong>Tip!</strong> 在文本框中输入内容，即可自动在服务器修改文本 <a href="#" class="alert-link"></a>
+			</div>
+                <br>
+                <br>
+			<div class="alert alert-dismissable alert-success">
+				<h4>
+					提示3:
+				</h4> <strong>Tip!</strong> 未使用时，记得关闭网页,减少给服务器带来压力 <a href="#" class="alert-link"></a>
+			</div>
+                <br>
+                <br>
+                <div class="alert alert-dismissable alert-success">
+				<h4>
+					最后:
+				</h4> <strong>叫上你的小伙伴一起编辑文件吧!</strong>  <a href="#" class="alert-link"></a>
+			</div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">CopyRight@copy2022-2022 Titans.All Rights Reserved </div>
+</body>
+</html>
